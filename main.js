@@ -49,7 +49,7 @@ const getPoints = (start, target, sd, td, extend = 20) => {
         if (isReverse(sd, td)) return [ [0, vq[1] + extend * sd[1]], second, [0, extend * td[1]] ];
         else return [ [0, vq[1] / 2], second, [0, vq[1] / 2] ];
       }
-    } else if (isParallel(sd, s)) {
+    } else {
       let second = [0, vq[1]];
       if (isReverse(sd, s)) {
         if (isReverse(sd, td)) return [ [extend * sd[0], 0], second, [vq[0] + extend * td[0], 0] ];
@@ -73,16 +73,14 @@ const getPoints = (start, target, sd, td, extend = 20) => {
       } else {
         if (isReverse(td, s)) return [ first, [vq[0] + extend * s[0], 0], [0, vq[1] - extend * v[1]], last ];
       }
-    } else if (isParallel(sd, s)) {
+    } else {
       let first = [extend * sd[0], 0];
       let last = [0, extend * td[1]];
-      if (isParallel(sd, s)) {
-        if (isReverse(sd, s)) {
-          if (isReverse(td, v)) return [ first, [0, vq[1] + extend * v[1]], [vq[0] + extend * s[0], 0], last ];
-          else return [ first, [0, vq[1] - extend * v[1]], [vq[0] + extend * s[0], 0], last ];
-        } else {
-          if (isReverse(td, v)) return [ first, [0, vq[1] + extend * v[1]], [vq[0] - extend * s[0], 0], last ];
-        }
+      if (isReverse(sd, s)) {
+        if (isReverse(td, v)) return [ first, [0, vq[1] + extend * v[1]], [vq[0] + extend * s[0], 0], last ];
+        else return [ first, [0, vq[1] - extend * v[1]], [vq[0] + extend * s[0], 0], last ];
+      } else {
+        if (isReverse(td, v)) return [ first, [0, vq[1] + extend * v[1]], [vq[0] - extend * s[0], 0], last ];
       }
     }
   }
